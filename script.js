@@ -32,8 +32,7 @@ function addIdea(e) {
 
 function populateIdea (object) {
 var content = `
-    <div data-index=${object.id} id = "idea${object.id}">
-      <article class="m-idea-card">
+      <article class="m-idea-card" data-index=${object.id}>
         <div class="idea-header flex-row">
           <h2 class="search-me card-title">${object.title}</h2>
           <button class="delete-card svg" alt="Delete"></button>
@@ -46,7 +45,6 @@ var content = `
         </div>
         <hr>
       </article>
-    </div>
     `;
   var newIdeaCard = document.createElement('div');
   newIdeaCard.innerHTML = content;
@@ -56,9 +54,20 @@ var content = `
 
 function deleteCard(event) {
   if (event.target.className === "delete-card svg") {
-    event.target.parentElement.parentElement.remove();
+  var el = event.target.parentElement.parentElement
+  var identifier = el.dataset.index
+  var parsedId = parseInt(identifier)
+    ideas.forEach(function(i) {
+      if (i.id === parsedId) {
+        ideas.splice(i, 1)
+      }
+    })
+  event.target.parentElement.parentElement.remove();
+  localStorage.setItem('ideas', JSON.stringify(ideas));
   }
 }
+
+
 
 
 function populateIdeas ( updateIdeas = [] ) {
@@ -67,7 +76,7 @@ function populateIdeas ( updateIdeas = [] ) {
   });
 }
 
-populateIdeas(ideas)
+populateIdeas(ideas);
 
 
 //make an constructor object
