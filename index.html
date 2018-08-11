@@ -6,19 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Idea Box</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab:400,700" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
     <main class="layout-main">
       <form class="layout-idea-entry idea-form">
         <h1>idea<span class="box-style">box</span></h1>
         <input type="text" title="Title Entry" class="m-input m-input-title idea-title" placeholder="Title">
-        <input type="text" title="Idea Body Entry" class="m-input m-input-body textbox" placeholder="Body">
-        <button class="save-btn m-submit-btn" aria-label="Save Button">save</button>
+        <input type="text" title="Idea Body Entry" class="m-input m-input-body idea-body" placeholder="Body">
+        <button class="save-btn m-submit-btn" aria-label="Save Button" disabled>save</button>
       </form>
       <section class="idea-container layout-idea-container">
-        <input type="text" name="Search" class="m-searchbar m-input" placeholder="Search">
-        <div class="m-idea-list" aria-label="Ideas">
+        <input type="text" name="Search" class="m-searchbar m-input .search-input" placeholder="Search">
+        <div class="m-idea-list idea-list" aria-label="Ideas">
         </div>
       </section>
     </main>
@@ -27,3 +27,19 @@
     <script type="text/javascript" src="script.js"></script>
   </body>
 </html>
+
+
+
+<!--   <article class="m-idea-card">
+    <div class="idea-header flex-row">
+      <h2 class="search-me card-title">${newTitle}</h2>
+      <button class="delete-card svg" alt="Delete"></button>
+    </div>
+    <p class="search-me idea-description">${newBody}</p>
+    <div class="quality-buttons">
+      <button class="upvote svg" role="button" aria-label="Upvote Idea"></button>
+      <button class="downvote svg"></button>
+      <p class="quality">${newQuality}</p>
+    </div>
+    <hr>
+  </article> -->
