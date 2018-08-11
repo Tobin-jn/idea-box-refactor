@@ -54,20 +54,17 @@ var content = `
 
 function deleteCard(event) {
   if (event.target.className === "delete-card svg") {
-  var el = event.target.parentElement.parentElement
-  var identifier = el.dataset.index
-  var parsedId = parseInt(identifier)
-    ideas.forEach(function(i) {
-      if (i.id === parsedId) {
-        ideas.splice(i, 1)
-      }
+    var el = event.target.parentElement.parentElement
+    var identifier = el.dataset.index
+    var parsedId = parseInt(identifier)
+    var updatedIdeas = ideas.filter(function(i) {
+      return i.id !== parsedId
     })
+  }
+  ideas = updatedIdeas
   event.target.parentElement.parentElement.remove();
   localStorage.setItem('ideas', JSON.stringify(ideas));
-  }
 }
-
-
 
 
 function populateIdeas ( updateIdeas = [] ) {
