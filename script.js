@@ -45,3 +45,9 @@ function deleteCard(event) {
     event.target.parentElement.parentElement.remove();
   }
 }
+
+
+//make an constructor object
+//pull from object to make card
+//put everything in local storage
+//update local storage
