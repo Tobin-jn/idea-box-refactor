@@ -1,5 +1,6 @@
 var ideaList = document.querySelector('.idea-list');
-var ideas = JSON.parse(localStorage.getItem('ideas')) || [];
+var ideas =  [];
+// ||
 
 document.querySelector('.save-btn').addEventListener('click', addIdea);
 document.querySelector('.idea-body').addEventListener('keyup', enableBtn);
@@ -27,7 +28,6 @@ function addIdea(e) {
   populateIdea(idea);
   localStorage.setItem('ideas', JSON.stringify(ideas));
   document.querySelector('.idea-form').reset();
-
 }
 
 function populateIdea (object) {
@@ -57,26 +57,45 @@ function deleteCard(event) {
     var el = event.target.parentElement.parentElement
     var identifier = el.dataset.index
     var parsedId = parseInt(identifier)
-    var updatedIdeas = ideas.filter(function(i) {
+    ideas = ideas.filter(function(i) {
       return i.id !== parsedId
     })
+    event.target.parentElement.parentElement.remove();
   }
-  ideas = updatedIdeas
-  event.target.parentElement.parentElement.remove();
   localStorage.setItem('ideas', JSON.stringify(ideas));
 }
 
-
+//previous versin working as long as storage wasn't empty
 function populateIdeas ( updateIdeas = [] ) {
+  updateIdeas.push(JSON.parse(localStorage.getItem('ideas')))
   updateIdeas.forEach(function(i) {
-      populateIdea(i)
+    populateIdea(i)
+  console.log(ideas)
   });
 }
+
 
 populateIdeas(ideas);
 
 
-//make an constructor object
-//pull from object to make card
-//put everything in local storage
-//update local storage
+//broke when the array was empty on page reload
+
+
+// //Quality Buttons
+// array with values 0-2
+// default quality is set to 0
+// when upvote is pressed increment
+// downvote decrement
+// save the counter as a var
+// update the quality to whatever the var is
+// make limits so cant go above 2, lower than 0
+// can use the index value of array to associate with the quality vote
+// the vote correlates to the index position
+// tie an index position to word, swill, plas, genius....
+
+
+
+
+
+
+
