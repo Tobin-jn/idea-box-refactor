@@ -1,5 +1,8 @@
+var ideaContainer = document.querySelector('.idea-list');
+
 document.querySelector('.save-btn').addEventListener('click', makeIdea);
 document.querySelector('.idea-body').addEventListener('keyup', enableBtn);
+ideaContainer.addEventListener('click', deleteCard);
 
 function enableBtn(e) {
   e.preventDefault();
@@ -13,13 +16,11 @@ function makeIdea(e) {
   e.preventDefault()
   var newTitle = document.querySelector('.idea-title').value
   var newBody = document.querySelector('.idea-body').value
-  var ideaContainer = document.querySelector('.idea-list');
-  console.log('test')
   var content = `<article class="m-idea-card">
       <div class="idea-header flex-row">
         <h2 class="search-me card-title">${newTitle}</h2>
         <button class="delete-card svg" alt="Delete"></button>
-      </div>
+      </div> 
       <p class="search-me idea-description">${newBody}</p>
       <div class="quality-buttons">
         <button class="upvote svg" role="button" aria-label="Upvote Idea"></button>
@@ -31,7 +32,22 @@ function makeIdea(e) {
   var newIdeaCard = document.createElement('div');
   newIdeaCard.innerHTML = content;
   ideaContainer.append(newIdeaCard);
-
-console.log(newIdeaCard)
-
+  clearInputs();
 }
+
+function clearInputs() {
+  document.querySelector('.idea-title').value = '';
+  document.querySelector('.idea-body').value = '';
+}
+
+function deleteCard(event) {
+  if (event.target.className === "delete-card svg") {
+    event.target.parentElement.parentElement.remove();
+  }
+}
+
+
+//make an constructor object
+//pull from object to make card
+//put everything in local storage
+//update local storage
