@@ -1,9 +1,9 @@
 var ideaList = document.querySelector('.idea-list');
-var ideas = [];
+var ideas = JSON.parse(localStorage.getItem('ideas')) || [];
 
-document.querySelector('.save-btn').addEventListener('submit', addIdea);
-// document.querySelector('.idea-body').addEventListener('keyup', enableBtn);
-// ideaContainer.addEventListener('click', deleteCard);
+document.querySelector('.save-btn').addEventListener('click', addIdea);
+document.querySelector('.idea-body').addEventListener('keyup', enableBtn);
+ideaList.addEventListener('click', deleteCard);
 
 function enableBtn(e) {
   e.preventDefault();
@@ -17,53 +17,57 @@ function addIdea(e) {
   e.preventDefault()
   var newTitle = document.querySelector('.idea-title').value
   var newBody = document.querySelector('.idea-body').value
-
   var idea = {
-    title: newTitle
-    body: newBody
+    title: newTitle,
+    body: newBody,
+    id: Date.now(),
     quality: "swill"
     }
-
   ideas.push(idea);
-  populateIdeas(ideas, ideaList);
-  this.reset;
+  populateIdea(idea);
+  localStorage.setItem('ideas', JSON.stringify(ideas));
+  document.querySelector('.idea-form').reset();
+
+}
+
+function populateIdea (object) {
+var content = `
+    <div data-index=${object.id} id = "idea${object.id}">
+      <article class="m-idea-card">
+        <div class="idea-header flex-row">
+          <h2 class="search-me card-title">${object.title}</h2>
+          <button class="delete-card svg" alt="Delete"></button>
+        </div> 
+        <p class="search-me idea-description">${object.body}</p>
+        <div class="quality-buttons">
+          <button class="upvote svg" role="button" aria-label="Upvote Idea"></button>
+          <button class="downvote svg"></button>
+          <p class="quality">swill</p>
+        </div>
+        <hr>
+      </article>
+    </div>
+    `;
+  var newIdeaCard = document.createElement('div');
+  newIdeaCard.innerHTML = content;
+  ideaList.append(newIdeaCard);
+  // console.log(ideas)
+}
+
+function deleteCard(event) {
+  if (event.target.className === "delete-card svg") {
+    event.target.parentElement.parentElement.remove();
+  }
 }
 
 
+function populateIdeas ( updateIdeas = [] ) {
+  updateIdeas.forEach(function(i) {
+      populateIdea(i)
+  });
+}
 
-
-
-
-
-//   var content = `<article class="m-idea-card">
-//       <div class="idea-header flex-row">
-//         <h2 class="search-me card-title">${newTitle}</h2>
-//         <button class="delete-card svg" alt="Delete"></button>
-//       </div> 
-//       <p class="search-me idea-description">${newBody}</p>
-//       <div class="quality-buttons">
-//         <button class="upvote svg" role="button" aria-label="Upvote Idea"></button>
-//         <button class="downvote svg"></button>
-//         <p class="quality">swill</p>
-//       </div>
-//       <hr>
-//     </article>`
-//   var newIdeaCard = document.createElement('div');
-//   newIdeaCard.innerHTML = content;
-//   ideaContainer.append(newIdeaCard);
-//   clearInputs();
-// }
-
-// function clearInputs() {
-//   document.querySelector('.idea-title').value = '';
-//   document.querySelector('.idea-body').value = '';
-// }
-
-// function deleteCard(event) {
-//   if (event.target.className === "delete-card svg") {
-//     event.target.parentElement.parentElement.remove();
-//   }
-// }
+populateIdeas(ideas)
 
 
 //make an constructor object
